@@ -7,9 +7,9 @@ use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
-use Validator;
 
 class RegisterController extends Controller
 {
