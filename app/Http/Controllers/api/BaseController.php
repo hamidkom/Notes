@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller as Controller;
 
 use Illuminate\Http\Request;
 
@@ -9,7 +9,7 @@ class BaseController extends Controller
 {
    public function sendResponse($result , $message){
        $response=[
-        'succes'=> true,
+        'success'=> true,
         'data'=>$result,
         'message'=>$message
     

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
      protected $fillable = [
-        'Title', 'Content', 'Observation',
+        'Title', 'Content', 'Observations',
     ];
 }

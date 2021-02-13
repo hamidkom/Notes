@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
 use App\Note;
 use Illuminate\Http\Request;
-use App\Http\Controllers\BaseController as BaseController;
-use Validator;
+use App\Http\Controllers\api\BaseController as BaseController;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Note as NoteResource;
 
-class NoteController extends Controller
+class NoteController extends BaseController
 {
     public function index()
     {
     $notes = Note::all();
-    return $this->sendResponse(NoteResource::collection($notes), 'Posts retrieved Successfully!' );
+    return $this->sendResponse(NoteResource::collection($notes), 'notes retrieved Successfully!' );
     }
 
 
-    // public function userPosts($id)
-    // {
-    // $posts = Note::where('user_id' , $id)->get();
-    // return $this->sendResponse(NoteResource::collection($posts), 'Posts retrieved Successfully!' );
-    // }
+    public function userNotes($id)
+    {
+    $notes = Note::where('user_id' , $id)->get();
+    return $this->sendResponse(NoteResource::collection($notes), 'notes retrieved Successfully!' );
+    }
 
 
     public function store(Request $request)
@@ -37,8 +36,8 @@ class NoteController extends Controller
             return $this->sendError('Validate Error',$validator->errors() );
         }
 
-        // $user = Auth::user();
-        // $input['user_id'] = $user->id;
+        $user = Auth::user();
+        $input['user_id'] = $user->id;
         $note = Note::create($input);
         return $this->sendResponse($note, 'Note added Successfully!' );
 
@@ -72,7 +71,7 @@ class NoteController extends Controller
         // }
         $note->Title = $input['Title'];
         $note->Content = $input['Content'];
-        $note->Observation = $input['Observation'];
+        $note->Observations = $input['Observations'];
         $note->save();
 
         return $this->sendResponse(new NoteResource($note), 'Note updated Successfully!' );
@@ -84,7 +83,7 @@ class NoteController extends Controller
         $errorMessage = [] ;
 
         // if ( $note->user_id != Auth::id()) {
-        //     return $this->sendError('you dont have rights' , $errorMessage);
+        //     return $this->sendError('You dont have Permission' , $errorMessage);
         // }
         $note->delete();
         return $this->sendResponse(new NoteResource($note), 'Note deleted Successfully!' );
