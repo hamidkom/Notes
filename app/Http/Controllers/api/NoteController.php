@@ -66,9 +66,9 @@ class NoteController extends BaseController
         }
 
 
-        // if ( $note->user_id != Auth::id()) {
-        //     return $this->sendError('you dont have rights' , $validator->errors());
-        // }
+        if ( $note->user_id != Auth::id()) {
+            return $this->sendError('you dont have Permission' , $validator->errors());
+        }
         $note->Title = $input['Title'];
         $note->Content = $input['Content'];
         $note->Observations = $input['Observations'];
@@ -82,9 +82,9 @@ class NoteController extends BaseController
     {
         $errorMessage = [] ;
 
-        // if ( $note->user_id != Auth::id()) {
-        //     return $this->sendError('You dont have Permission' , $errorMessage);
-        // }
+        if ( $note->user_id != Auth::id()) {
+            return $this->sendError('You dont have Permission' , $errorMessage);
+        }
         $note->delete();
         return $this->sendResponse(new NoteResource($note), 'Note deleted Successfully!' );
 
