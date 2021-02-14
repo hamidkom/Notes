@@ -22,4 +22,6 @@ Route::post('login', 'api\registerController@login');
 
 Route::middleware('auth:api')->group(function(){
 Route::resource('notes','api\NoteController');
+Route::get('notes\user\{id}','api\NoteController@userNotes');
+
 });

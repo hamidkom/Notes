@@ -17,7 +17,6 @@ class NoteController extends BaseController
     return $this->sendResponse(NoteResource::collection($notes), 'notes retrieved Successfully!' );
     }
 
-
     public function userNotes($id)
     {
     $notes = Note::where('user_id' , $id)->get();
@@ -46,6 +45,13 @@ class NoteController extends BaseController
 
     public function show($id)
     {
+
+        $errorMessage = [] ;
+
+        if ( $id->user_id != Auth::id()) {
+            return $this->sendError('You dont have Permission' , $errorMessage);
+        }
+
         $note = Note::find($id);
         if (is_null($note)) {
             return $this->sendError('Note not found!' );
