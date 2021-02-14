@@ -36,6 +36,7 @@ class NoteController extends BaseController
         }
 
         $user = Auth::user();
+
         $input['user_id'] = $user->id;
         $note = Note::create($input);
         return $this->sendResponse($note, 'Note added Successfully!' );

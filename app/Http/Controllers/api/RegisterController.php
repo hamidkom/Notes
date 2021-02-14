@@ -40,6 +40,7 @@ class RegisterController extends BaseController
 
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            
             $user = Auth::user();
             $success['token'] = $user->createToken('thegame2020')->accessToken;
             $success['name'] = $user->name;
@@ -47,7 +48,7 @@ class RegisterController extends BaseController
         }
 
        else{
-            return $this->sendError('Unauthorized',['error','Unauthorised'] );
+            return $this->sendError('Unauthorized',['error','Unauthorized'] );
         }
 
     }}
