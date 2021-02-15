@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// routes for notes
+
+Route::get('/notes', 'web\NotesController@index')->name('notes');
+Route::get('/note/create', 'web\NotesController@create')->name('note.create');
+Route::get('/note/store', 'web\NotesController@store')->name('note.store');
+Route::get('/note/show/{slug}', 'web\NotesController@show')->name('note.show');
+Route::get('/note/edit/{id}', 'web\NotesController@edit')->name('note.edit');
+Route::get('/note/update/{id}', 'web\NotesController@update')->name('note.update');
+Route::get('/note/destroy/{id}', 'web\NotesController@destroy')->name('note.destroy');

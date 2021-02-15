@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
+    protected $table = 'notes';
      protected $fillable = [
         'Title', 'Content', 'Observations', 'user_id',
     ];
     public function user()
     {
-        return $this->belongsTo('App\User' );
+        return $this->belongsTo('App\User', 'user_id');
     }
 }
