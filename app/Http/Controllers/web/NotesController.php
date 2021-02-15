@@ -21,7 +21,9 @@ class NotesController extends Controller
    
     public function index()
     {
-        $notes = Note::orderBy('created_at' , 'DESC')->get();
+        $currentuser = Auth::user();
+      //dump($currentuser);
+        $notes = Note::where('user_id' ,'=', $currentuser->id)->get();
         return view('notes.index')->with('notes',$notes);
     }
 
@@ -52,6 +54,7 @@ class NotesController extends Controller
    
     public function show($slug)
     {
+        
         $note = Note::where('slug' , $slug)->first();
         return view('notes.show')->with('note',$note);
     }

@@ -22,6 +22,7 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Created</th>
                     <th scope="col">Observations</th>
                     <th scope="col">User</th>
                     <th scope="col">Actions</th>
@@ -29,15 +30,19 @@
                   </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $i=1;
+                    @endphp
                   @foreach ($notes as $item)
                   <tr>
-                    <th scope="row">3</th>
+                    <th scope="row">{{ $i++ }}</th>
                     <td>{{ $item->Title }}</td>
+                    <td>{{$item->created_at->diffForhumans()}}</td>
                     <td>{{ $item->Observations }}</td>
                     <td>{{ $item->user->name }}</td>
                     <td>
-                     <a href="{{ route('note.show',['slug'=>$item->slug]) }}"  <i class="text-success fas fa-2x fa-eye"></i></a>   
-                     <a href="{{ route('note.edit',['id'=>$item->id]) }}"  <i class="fas fa-edit fa-2x"></i></a>   
+                     <a href="{{ route('note.show',['slug'=>$item->slug]) }}"  <i class="text-success fas fa-2x fa-eye"></i></a>  &nbsp;&nbsp; 
+                     <a href="{{ route('note.edit',['id'=>$item->id]) }}"  <i class="fas fa-edit fa-2x"></i></a>   &nbsp;&nbsp;
                      <a href="{{ route('note.destroy',['id'=>$item->id]) }}"  <i class="text-danger fas fa-trash-alt fa-2x"></i></a>   
                     <td>
                   </tr>
