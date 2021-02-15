@@ -14,10 +14,10 @@ use App\Http\Resources\Note as NoteResource;
 
 class NotesController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
    
     public function index()
     {
@@ -37,14 +37,14 @@ class NotesController extends Controller
         $this->validate($request, [
             'Title'=> 'required',
             'Content'=> 'required',
-            'Observation'=> 'nullable'
+            'Observations'=> 'nullable'
         ]);
         $note=Note::create([
             'user_id'=>Auth::id(),
             'Title'=> $request->Title,
             'Content'=> $request->Content,
-            'Observation'=> $request->Observation,
-            'slug'=> str::slug($request->Title),
+            'Observations'=> $request->Observations,
+            'slug'=> str_slug($request->Title),
         ]);
         return redirect()->back();
     }
@@ -64,12 +64,24 @@ class NotesController extends Controller
     }
 
    
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    public function update(Request $request,  $id)
+    {
+        $note = Note::find( $id ) ;
+        $this->validate($request,[
+            'Title' =>  'required',
+            'Content' =>  'required'
+        ]);
+        if ($request->has('Observations')) {
+             
+        $note->Observations = $request->Observations;
 
-  
+        }
+        $note->Title = $request->Title;
+        $note->Content = $request->Content;
+        $note->save();
+        return redirect()->back();
+
+    }
     public function destroy($id)
     {
         $note = Note::find($id);
