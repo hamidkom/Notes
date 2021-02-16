@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col">
         <div class="jumbotron">
-            <h1 class="display-4">All Notes</h1>
+            <h1 class="display-5">Your Notes</h1>
             <a class="btn btn-success" href="{{ route('note.create') }}" class="hre">Create Note</a>
         </div>
           </div>
@@ -22,9 +22,9 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Created</th>
                     <th scope="col">Observations</th>
-                    <th scope="col">User</th>
+                    <th scope="col">Created</th>
+                    {{-- <th scope="col">User</th> --}}
                     <th scope="col">Actions</th>
 
                   </tr>
@@ -37,9 +37,9 @@
                   <tr>
                     <th scope="row">{{ $i++ }}</th>
                     <td>{{ $item->Title }}</td>
-                    <td>{{$item->created_at->diffForhumans()}}</td>
                     <td>{{ $item->Observations }}</td>
-                    <td>{{ $item->user->name }}</td>
+                    <td>{{$item->created_at->diffForhumans()}}</td>
+                    {{-- <td>{{ $item->user->name }}</td> --}}
                     <td>
                      <a href="{{ route('note.show',['slug'=>$item->slug]) }}"  <i class="text-success fas fa-2x fa-eye"></i></a>  &nbsp;&nbsp; 
                      <a href="{{ route('note.edit',['id'=>$item->id]) }}"  <i class="fas fa-edit fa-2x"></i></a>   &nbsp;&nbsp;

@@ -10,9 +10,9 @@ class Note extends Model
      protected $fillable = [
         'Title', 'Content', 'Observations', 'user_id','slug',
     ];
-    public function posts()
+    public function notes()
 {
-    return $this->hasMany(Post::class);
+    return $this->hasMany(Note::class);
 }
     public function user()
     {

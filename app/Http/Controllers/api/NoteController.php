@@ -13,7 +13,8 @@ class NoteController extends BaseController
 {
     public function index()
     {
-    $notes = Note::all();
+      $id=Auth::id();  
+    $notes = Note::where('user_id' , $id)->get();
     return $this->sendResponse(NoteResource::collection($notes), 'notes retrieved Successfully!' );
     }
 
@@ -22,6 +23,7 @@ class NoteController extends BaseController
     $notes = Note::where('user_id' , $id)->get();
     return $this->sendResponse(NoteResource::collection($notes), 'notes retrieved Successfully!' );
     }
+    
 
 
     public function store(Request $request)
@@ -53,7 +55,7 @@ class NoteController extends BaseController
             return $this->sendError('You dont have Permission' , $errorMessage);
         }
 
-        $note = Note::find($id);
+        $note = Note::where( $id->user_id === Auth::id());
         if (is_null($note)) {
             return $this->sendError('Note not found!' );
         }
